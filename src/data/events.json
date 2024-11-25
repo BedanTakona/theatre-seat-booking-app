@@ -1,0 +1,24 @@
+[
+    {
+        "id": "1",
+        "title": "The Phantom of the Opera",
+        "date": "2024-12-01",
+        "description": "A spectacular performance of the classic musical.",
+        "seats": [
+            { "id": "1", "number": "A1" },
+            { "id": "2", "number": "A2" },
+            { "id": "3", "number": "A3" }
+        ]
+    },
+    {
+        "id": "2",
+        "title": "The Lion King",
+        "date": "2024-12-05",
+        "description": "A magical experience filled with music and dance.",
+        "seats": [
+            { "id": "4", "number": "B1" },
+            { "id": "5", "number": "B2" },
+            { "id": "6", "number": "B3" }
+        ]
+    }
+]

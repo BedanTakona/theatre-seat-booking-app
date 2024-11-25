@@ -1,0 +1,64 @@
+/* seatMap.module.css */
+
+/* General layout for the seat map */
+.seatMap {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);  /* Adjust the number of columns for your seats */
+  gap: 10px;
+  justify-items: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Styles for each seat */
+.seat {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #cccccc;  /* Grey color for available seats */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for selecting seats */
+.seat:hover {
+  background-color: #ffcc00;  /* Highlight on hover */
+}
+
+/* Styles for selected seats */
+.selected {
+  background-color: #00cc00;  /* Green color for selected seats */
+}
+
+/* Styles for booked seats */
+.booked {
+  background-color: #ff6666;  /* Red color for booked seats */
+  cursor: not-allowed;
+}
+
+/* Layout for booking confirmation form */
+.bookingForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.bookingForm input,
+.bookingForm button {
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+.bookingForm button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.bookingForm button:hover {
+  background-color: #0056b3;
+}

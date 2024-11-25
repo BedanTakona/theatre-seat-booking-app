@@ -1,0 +1,191 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Body styles */
+body {
+  background-color: #f0f4f8;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Centering content */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* Header styles */
+header {
+  background-color: #1a73e8;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 18px;
+  font-weight: 300;
+  margin-top: 5px;
+}
+
+/* Button styling */
+button, .button {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+button:hover, .button:hover {
+  background-color: #0f5abf;
+}
+
+button:focus, .button:focus {
+  outline: none;
+}
+
+/* Event Card styles */
+.event-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.event-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.event-card h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 15px 0;
+}
+
+.event-card p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Seat map styling */
+.seat-map {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.seat {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.seat.available {
+  background-color: #4caf50;
+}
+
+.seat.selected {
+  background-color: #ff9800;
+  transform: scale(1.1);
+}
+
+.seat.unavailable {
+  background-color: #f44336;
+  cursor: not-allowed;
+}
+
+.seat:hover:not(.unavailable) {
+  background-color: #64b5f6;
+  transform: scale(1.1);
+}
+
+/* Booking form */
+.booking-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.booking-form input,
+.booking-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.booking-form button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.booking-form button:hover {
+  background-color: #0f5abf;
+}
+
+/* Footer styles */
+footer {
+  background-color: #1a73e8;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+}
+
+footer p {
+  font-size: 16px;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
