@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import eventsData from '../data/events.json';
+import Image from 'next/image';
 
 const IndexPage = () => {
     return (

@@ -1,23 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Seat from './Seat';
 
 const SeatMap = ({ seats, onSeatSelect }) => {
+    const [bookedSeats, setBookedSeats] = useState([]);
     const [selectedSeats, setSelectedSeats] = useState([]);
 
+    // Load booked seats from local storage
+    useEffect(() => {
+        const storedBookings = JSON.parse(localStorage.getItem('bookings')) || [];
+        const bookedSeatIds = storedBookings.flatMap((booking) => booking.selectedSeats || []);
+        setBookedSeats(bookedSeatIds);
+    }, []);
+
     const handleSeatClick = (seatId) => {
+        if (bookedSeats.includes(seatId)) {
+            alert('This seat is already booked.');
+            return;
+        }
+
         setSelectedSeats((prev) => {
             if (prev.includes(seatId)) {
-                return prev.filter((id) => id !== seatId);
-            } else if (prev.length < 3) { // Limit to 5 seats
+                return prev.filter((id) => id !== seatId); // Deselect seat
+            } else if (prev.length < 3) { // Limit to 3 seats
                 return [...prev, seatId];
             } else {
                 alert('You can book a maximum of 3 seats.');
                 return prev;
             }
         });
-        onSeatSelect(selectedSeats);
     };
-    
+
+    // Save selected seats when booking
+    useEffect(() => {
+        onSeatSelect(selectedSeats);
+    }, [selectedSeats, onSeatSelect]);
 
     return (
         <div className="seat-map">
@@ -25,12 +41,14 @@ const SeatMap = ({ seats, onSeatSelect }) => {
                 <Seat
                     key={seat.id}
                     seat={seat}
-                    onClick={handleSeatClick}
+                    onClick={() => handleSeatClick(seat.id)}
                     isSelected={selectedSeats.includes(seat.id)}
+                    isBooked={bookedSeats.includes(seat.id)} // Highlight booked seats
                 />
             ))}
         </div>
     );
+    
 };
 
 export default SeatMap;

@@ -223,6 +223,13 @@ button:focus, .button:focus {
 }
 
 
+.booked-seat:hover {
+  background-color: red; /* Change on hover */
+  cursor: not-allowed;       /* Show not-allowed cursor */
+}
+
+
+
 
 /* Booking form */
 .booking-form {

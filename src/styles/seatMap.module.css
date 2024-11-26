@@ -1,4 +1,16 @@
 /* seatMap.module.css */
+/* Default booked seat styling */
+.booked-seat {
+  background-color: gray;
+  pointer-events: none; /* Prevent interaction */
+  cursor: not-allowed;
+}
+
+/* Hover effect for booked seats */
+.booked-seat:hover {
+  background-color: darkgray;
+  border: 1px solid #000;
+}
 
 /* General layout for the seat map */
 .seatMap {

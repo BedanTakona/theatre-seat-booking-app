@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const BookingForm = ({ selectedSeats, event, onSubmit }) => {
+const BookingForm = ({ selectedSeats, event }) => {
     const router = useRouter();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -9,10 +9,11 @@ const BookingForm = ({ selectedSeats, event, onSubmit }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
     
         const bookingDetails = {
+            id: Date.now().toString(),
             name,
             email,
             phone,
@@ -21,10 +22,19 @@ const BookingForm = ({ selectedSeats, event, onSubmit }) => {
         };
     
         setIsSubmitting(true);
+    
         try {
-            await onSubmit(bookingDetails); // Submit booking details
-            setSuccessMessage('Booking successful! Click below to go to the home page.');
+            // Retrieve existing bookings or initialize an empty array
+            const existingBookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            // Add the new booking to the existing ones
+            const updatedBookings = [...existingBookings, bookingDetails];
+            // Save the updated bookings to local storage
+            localStorage.setItem('bookings', JSON.stringify(updatedBookings));
+    
+            setSuccessMessage('Booking successful! Redirecting to confirmation...');
+            router.push('/confirmation'); // Redirect to the confirmation page
         } catch (error) {
+            console.error('Error saving booking:', error);
             alert('Booking failed. Please try again.');
         } finally {
             setIsSubmitting(false);
@@ -36,7 +46,10 @@ const BookingForm = ({ selectedSeats, event, onSubmit }) => {
         <div className="booking-form">
             <h2>Confirm Your Booking</h2>
             {successMessage ? (
-                <p className="success-message">{successMessage}</p>
+                <div>
+                    <p className="success-message">{successMessage}</p>
+                    <button onClick={() => router.push('/')}>Go to Home Page</button>
+                </div>
             ) : (
                 <form onSubmit={handleSubmit}>
                     <div>
