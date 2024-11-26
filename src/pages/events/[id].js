@@ -14,21 +14,33 @@ const EventPage = () => {
     useEffect(() => {
         if (id) {
             const eventData = eventsData.find((e) => e.id === id);
-            setEvent(eventData);
+            if (eventData) {
+                setEvent(eventData);
+            } else {
+                console.error('Event not found');
+            }
         }
     }, [id]);
+    
 
     const handleSeatSelect = (seats) => {
         setSelectedSeats(seats);
     };
 
     const handleBookingSubmit = (bookingDetails) => {
-        // Process booking and redirect to confirmation
         router.push({
             pathname: '/confirmation',
-            query: { ...bookingDetails },
+            query: {
+                ...bookingDetails,
+                selectedSeats: selectedSeats.join(', '),
+                eventTitle: event.title,  // Send individual properties instead of the entire object
+                eventDate: event.date,
+                eventDescription: event.description,
+            },
         });
     };
+    
+    
 
     if (!event) return <div>Loading...</div>;
 
@@ -40,7 +52,6 @@ const EventPage = () => {
             <SeatMap seats={event.seats} onSeatSelect={handleSeatSelect} />
             <BookingForm
                 selectedSeats={selectedSeats}
-                event={event}
                 onSubmit={handleBookingSubmit}
             />
         </div>

@@ -8,12 +8,16 @@ const SeatMap = ({ seats, onSeatSelect }) => {
         setSelectedSeats((prev) => {
             if (prev.includes(seatId)) {
                 return prev.filter((id) => id !== seatId);
-            } else {
+            } else if (prev.length < 3) { // Limit to 5 seats
                 return [...prev, seatId];
+            } else {
+                alert('You can book a maximum of 3 seats.');
+                return prev;
             }
         });
         onSeatSelect(selectedSeats);
     };
+    
 
     return (
         <div className="seat-map">

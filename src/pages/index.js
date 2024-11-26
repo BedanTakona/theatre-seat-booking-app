@@ -10,6 +10,11 @@ const IndexPage = () => {
             <div className="events-list">
                 {eventsData.map((event) => (
                     <div key={event.id} className="event-card">
+                        <img 
+                            src={event.image} 
+                            alt={`Image for ${event.title}`} 
+                            className="event-image"
+                        />
                         <h2>{event.title}</h2>
                         <p>{event.date}</p>
                         <p>{event.description}</p>

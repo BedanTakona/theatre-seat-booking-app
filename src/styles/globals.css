@@ -1,3 +1,5 @@
+/* Updated Global Styles with Deep Blue Palette */
+
 /* Basic reset */
 * {
   margin: 0;
@@ -8,8 +10,8 @@
 
 /* Body styles */
 body {
-  background-color: #f0f4f8;
-  color: #333;
+  background-color: #EAF2F8; /* Light blue-gray */
+  color: #2E4057; /* Dark blue-gray */
   font-size: 16px;
   line-height: 1.6;
   padding: 20px;
@@ -29,7 +31,7 @@ body {
 
 /* Header styles */
 header {
-  background-color: #1a73e8;
+  background-color: #0A369D; /* Deep navy blue */
   color: white;
   padding: 20px 0;
   text-align: center;
@@ -50,7 +52,7 @@ header p {
 
 /* Button styling */
 button, .button {
-  background-color: #1a73e8;
+  background-color: #1E6091; /* Medium blue */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -58,83 +60,169 @@ button, .button {
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s;
+  margin-top: 20px;
+
 }
 
 button:hover, .button:hover {
-  background-color: #0f5abf;
+  background-color: #64A1F4; /* Soft blue */
 }
 
 button:focus, .button:focus {
   outline: none;
 }
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 20px;
+}
+
+.confirmation-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.confirmation p {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #333;
+}
+.confirmation h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.details {
+  margin-bottom: 20px;
+}
+
+
 
 /* Event Card styles */
 .event-card {
+  display: flex;
+  align-items: flex-start;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  gap: 20px; /* Add spacing between image and text */
+  max-width: 800px;
 }
 
 .event-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.event-card img {
-  width: 100%;
-  height: auto;
+.event-image {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
   border-radius: 8px;
+  flex-shrink: 0; /* Prevent image from shrinking */
 }
 
-.event-card h3 {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 15px 0;
+.event-details {
+  flex: 1;
+  padding: 0 10px; /* Add padding to separate text from image */
 }
 
-.event-card p {
+.event-details h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.event-details p {
   font-size: 16px;
   color: #555;
+  margin-bottom: 10px;
 }
+
+.event-details a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: #1a73e8;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.event-details a:hover {
+  background-color: #0f5abf;
+}
+
+/* Add spacing around the overall container */
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Add space between event cards */
+  padding: 20px;
+}
+@media (max-width: 768px) {
+  .event-card {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .event-card img {
+      max-width: 100%;
+      margin-bottom: 15px;
+  }
+}
+
 
 /* Seat map styling */
 .seat-map {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 10px;
-  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Adds space between seats */
 }
 
 .seat {
-  width: 30px;
-  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #333;
   border-radius: 5px;
-  background-color: #e0e0e0;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #f4f4f4;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Adds smooth transition */
 }
 
-.seat.available {
-  background-color: #4caf50;
+.seat:hover {
+  background-color: #ddd; /* Change hover color */
+  transform: scale(1.1); /* Slightly enlarge the seat */
 }
 
 .seat.selected {
-  background-color: #ff9800;
-  transform: scale(1.1);
+  background-color: #4caf50;
+  color: white;
 }
 
-.seat.unavailable {
-  background-color: #f44336;
-  cursor: not-allowed;
-}
 
-.seat:hover:not(.unavailable) {
-  background-color: #64b5f6;
-  transform: scale(1.1);
-}
 
 /* Booking form */
 .booking-form {
@@ -165,12 +253,12 @@ button:focus, .button:focus {
 }
 
 .booking-form button:hover {
-  background-color: #0f5abf;
+  background-color: #0A369D; /* Deep navy blue */
 }
 
 /* Footer styles */
 footer {
-  background-color: #1a73e8;
+  background-color: #0A369D; /* Deep navy blue */
   color: white;
   text-align: center;
   padding: 20px;
@@ -188,4 +276,12 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
+}
+.event-image {
+  width: 100%;
+  max-width: 250px;
+  height: 150px;
+  object-fit: cover; /* Ensures image fits neatly without distortion */
+  border-radius: 8px;
+  margin: 0 auto 10px;
 }
