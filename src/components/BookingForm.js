@@ -1,55 +1,42 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const BookingForm = ({ selectedSeats, event }) => {
+const BookingForm = ({ selectedSeats, event, onSubmit }) => {
     const router = useRouter();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-    
+        
         const bookingDetails = {
-            id: Date.now().toString(),
             name,
             email,
             phone,
             selectedSeats,
             event,
         };
-    
+
         setIsSubmitting(true);
-    
         try {
-            // Retrieve existing bookings or initialize an empty array
-            const existingBookings = JSON.parse(localStorage.getItem('bookings')) || [];
-            // Add the new booking to the existing ones
-            const updatedBookings = [...existingBookings, bookingDetails];
-            // Save the updated bookings to local storage
-            localStorage.setItem('bookings', JSON.stringify(updatedBookings));
-    
-            setSuccessMessage('Booking successful! Redirecting to confirmation...');
-            router.push('/confirmation'); // Redirect to the confirmation page
+            await onSubmit(bookingDetails); // Passes data to parent function to save
+            setSuccessMessage('Booking successful! Click below to go to the home page.');
         } catch (error) {
-            console.error('Error saving booking:', error);
-            alert('Booking failed. Please try again.');
+            setErrorMessage('Booking failed. Please try again.');
         } finally {
             setIsSubmitting(false);
         }
     };
-    
 
     return (
         <div className="booking-form">
             <h2>Confirm Your Booking</h2>
             {successMessage ? (
-                <div>
-                    <p className="success-message">{successMessage}</p>
-                    <button onClick={() => router.push('/')}>Go to Home Page</button>
-                </div>
+                <p className="success-message">{successMessage}</p>
             ) : (
                 <form onSubmit={handleSubmit}>
                     <div>
@@ -82,6 +69,7 @@ const BookingForm = ({ selectedSeats, event }) => {
                             required
                         />
                     </div>
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                     <button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? 'Submitting...' : 'Submit Booking'}
                     </button>

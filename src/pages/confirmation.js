@@ -15,7 +15,9 @@ const Confirmation = () => {
             <div className="confirmation-wrap">
                 <div className="details">
                     <p><strong>Event:</strong> {eventTitle || "Event not available"}</p>
-                    <p><strong>Seats:</strong> {selectedSeats ? selectedSeats.split(',').join(', ') : "Seats not available"}</p>
+                    <p><strong>Date:</strong> {eventDate || "Date not available"}</p>
+                    <p><strong>Description:</strong> {eventDescription || "Description not available"}</p>
+                    <p><strong>Seats:</strong> {Array.isArray(selectedSeats) ? selectedSeats.join(', ') : selectedSeats}</p>
                     <p><strong>Name:</strong> {name}</p>
                     <p><strong>Email:</strong> {email}</p>
                     <p><strong>Phone:</strong> {phone}</p>
