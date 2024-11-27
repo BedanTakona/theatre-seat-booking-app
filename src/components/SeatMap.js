@@ -35,6 +35,13 @@ const SeatMap = ({ seats, onSeatSelect }) => {
         onSeatSelect(selectedSeats);
     }, [selectedSeats, onSeatSelect]);
 
+    const calculateTotalPrice = () => {
+        return selectedSeats.reduce((total, seatId) => {
+            const seat = seats.find((s) => s.id === seatId);
+            return seat ? total + seat.price : total;
+        }, 0);
+    };
+
     return (
         <div className="seat-map">
             {seats.map((seat) => (
@@ -46,9 +53,11 @@ const SeatMap = ({ seats, onSeatSelect }) => {
                     isBooked={bookedSeats.includes(seat.id)} // Highlight booked seats
                 />
             ))}
+            <div className="total-price">
+                Total: ${calculateTotalPrice()}
+            </div>
         </div>
     );
-    
 };
 
 export default SeatMap;

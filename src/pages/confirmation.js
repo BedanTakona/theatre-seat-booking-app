@@ -9,6 +9,15 @@ const Confirmation = () => {
         router.push('/'); // Manually navigate to the home page
     };
 
+    // Function to format the seat details with prices
+    const getSeatDetails = (seats) => {
+        return seats.map(seat => (
+            <p key={seat.id}>
+                <strong>Seat {seat.number}:</strong> ${seat.price}
+            </p>
+        ));
+    };
+
     return (
         <div className="confirmation">
             <h2>Booking Confirmation</h2>
@@ -17,7 +26,10 @@ const Confirmation = () => {
                     <p><strong>Event:</strong> {eventTitle || "Event not available"}</p>
                     <p><strong>Date:</strong> {eventDate || "Date not available"}</p>
                     <p><strong>Description:</strong> {eventDescription || "Description not available"}</p>
-                    <p><strong>Seats:</strong> {Array.isArray(selectedSeats) ? selectedSeats.join(', ') : selectedSeats}</p>
+                    <div>
+                        <strong>Seats:</strong>
+                        {getSeatDetails(selectedSeats)} {/* Display seats with prices */}
+                    </div>
                     <p><strong>Name:</strong> {name}</p>
                     <p><strong>Email:</strong> {email}</p>
                     <p><strong>Phone:</strong> {phone}</p>

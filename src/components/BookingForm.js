@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-const BookingForm = ({ selectedSeats, event, onSubmit }) => {
+const BookingForm = ({ selectedSeats, event, seats, onSubmit }) => {
     const router = useRouter();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -9,6 +9,19 @@ const BookingForm = ({ selectedSeats, event, onSubmit }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    // Calculate the total price of the selected seats
+    useEffect(() => {
+        if (seats && selectedSeats) {
+            const total = selectedSeats.reduce((sum, seatId) => {
+                const seat = seats.find(s => s.id === seatId);
+                return seat ? sum + seat.price : sum;
+            }, 0);
+            setTotalPrice(total);
+        }
+    }, [selectedSeats, seats]);
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,6 +32,7 @@ const BookingForm = ({ selectedSeats, event, onSubmit }) => {
             phone,
             selectedSeats,
             event,
+            totalPrice,  // Include total price in the booking details
         };
 
         setIsSubmitting(true);
@@ -68,6 +82,9 @@ const BookingForm = ({ selectedSeats, event, onSubmit }) => {
                             onChange={(e) => setPhone(e.target.value)}
                             required
                         />
+                    </div>
+                    <div>
+                        <p><strong>Total Price: </strong>${totalPrice}</p>
                     </div>
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                     <button type="submit" disabled={isSubmitting}>
