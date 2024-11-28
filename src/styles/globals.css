@@ -292,3 +292,13 @@ footer a:hover {
   border-radius: 8px;
   margin: 0 auto 10px;
 }
+a {
+  text-decoration: none; /* Removes the underline */
+  color: #0077cc; /* Primary link color */
+   /* Makes the link bold */
+}
+
+a:hover {
+  text-decoration: underline; /* Adds an underline on hover */
+  color: #0056a3; /* Darkens the color on hover */
+}

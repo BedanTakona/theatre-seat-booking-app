@@ -21,26 +21,32 @@ const EventPage = () => {
             }
         }
     }, [id]);
-    
 
     const handleSeatSelect = (seats) => {
         setSelectedSeats(seats);
     };
 
     const handleBookingSubmit = (bookingDetails) => {
+        // Include the price in the selected seats
+        const seatsWithPrice = selectedSeats.map(seat => ({
+            id: seat.id,
+            number: seat.number,
+            price: seat.price
+        }));
+
+        // Ensure all necessary data (event details, selected seats, total cost) is passed to the confirmation page
         router.push({
             pathname: '/confirmation',
             query: {
                 ...bookingDetails,
-                selectedSeats: selectedSeats.join(', '),
-                eventTitle: event.title,  // Send individual properties instead of the entire object
+                eventTitle: event.title,
                 eventDate: event.date,
                 eventDescription: event.description,
+                selectedSeats: JSON.stringify(seatsWithPrice),
+                totalCost: selectedSeats.reduce((total, seat) => total + seat.price, 0),
             },
         });
     };
-    
-    
 
     if (!event) return <div>Loading...</div>;
 

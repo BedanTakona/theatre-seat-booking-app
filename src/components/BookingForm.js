@@ -83,9 +83,7 @@ const BookingForm = ({ selectedSeats, event, seats, onSubmit }) => {
                             required
                         />
                     </div>
-                    <div>
-                        <p><strong>Total Price: </strong>${totalPrice}</p>
-                    </div>
+                 
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                     <button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? 'Submitting...' : 'Submit Booking'}

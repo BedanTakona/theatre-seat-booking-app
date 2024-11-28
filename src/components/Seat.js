@@ -7,7 +7,7 @@ const Seat = ({ seat, onClick, isSelected, isBooked }) => {
             onClick={() => !isBooked && onClick(seat.id)} // Prevent booking of already booked seats
         >
             <span>{seat.number}</span>
-            <span className="seat-price">${seat.price}</span> {/* Show price */}
+           
         </div>
     );
 };
