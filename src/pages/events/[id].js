@@ -27,13 +27,16 @@ const EventPage = () => {
     };
 
     const handleBookingSubmit = async (bookingDetails) => {
+        // Map the selected seats to include price and other details
         const seatsWithPrice = selectedSeats.map((seatId) => {
             const seat = event.seats.find((s) => s.id === seatId);
             return seat ? { id: seat.id, number: seat.number, price: seat.price } : null;
         }).filter(seat => seat !== null);
     
+        // Calculate total cost
         const totalCost = seatsWithPrice.reduce((total, seat) => total + seat.price, 0);
     
+        // Create booking data to send to the API
         const bookingData = {
             ...bookingDetails,
             selectedSeats: seatsWithPrice,
@@ -44,6 +47,7 @@ const EventPage = () => {
         };
     
         try {
+            // Send the booking data to the API
             const response = await fetch('/api/bookings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -54,8 +58,9 @@ const EventPage = () => {
                 // Wait for the booking data response from the API
                 const bookingResponse = await response.json();
                 const { id: bookingId } = bookingResponse.booking;
-                // Redirect to the confirmation page with the bookingId
-                router.push(`/confirmation?bookingId=${bookingId}`);
+    
+                // Redirect to the confirmation page with all relevant booking data
+                router.push(`/confirmation?bookingId=${bookingId}&name=${bookingDetails.name}&email=${bookingDetails.email}&phone=${bookingDetails.phone}&selectedSeats=${JSON.stringify(seatsWithPrice)}&eventTitle=${event.title}&eventDate=${event.date}&eventDescription=${event.description}&totalCost=${totalCost}`);
             } else {
                 console.error('Error submitting booking:', await response.json());
             }
@@ -63,7 +68,7 @@ const EventPage = () => {
             console.error('Error submitting booking:', error);
         }
     };
-
+    
     if (!event) return <div>Loading...</div>;
 
     return (
