@@ -14,31 +14,10 @@ export default async function handler(req, res) {
                 return res.status(400).json({ message: 'Missing required booking details.' });
             }
 
-            // Parse selectedSeats if it's a JSON string
-            let parsedSeats = selectedSeats;
-            if (typeof selectedSeats === 'string') {
-                try {
-                    parsedSeats = JSON.parse(selectedSeats);
-                } catch {
-                    return res.status(400).json({ message: 'Invalid format for selectedSeats.' });
-                }
-            }
-
             // Load existing bookings
             const existingBookings = fs.existsSync(bookingsFilePath)
                 ? JSON.parse(fs.readFileSync(bookingsFilePath, 'utf8'))
                 : [];
-
-            // Check if any selected seat is already booked
-            const isSeatBooked = parsedSeats.some(seat =>
-                existingBookings.some(booking =>
-                    booking.selectedSeats.includes(seat)
-                )
-            );
-
-            if (isSeatBooked) {
-                return res.status(400).json({ message: 'One or more selected seats are already booked.' });
-            }
 
             // Prepare new booking object
             const newBooking = {
@@ -46,7 +25,7 @@ export default async function handler(req, res) {
                 name,
                 email,
                 phone,
-                selectedSeats: parsedSeats,
+                selectedSeats,
                 totalCost,
                 eventTitle: event.title,
                 eventDate: event.date,

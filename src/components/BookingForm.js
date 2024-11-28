@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+
 const BookingForm = ({ selectedSeats, event, seats, onSubmit }) => {
     const router = useRouter();
     const [name, setName] = useState('');
